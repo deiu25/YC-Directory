@@ -1,37 +1,40 @@
 import SearchForm from "@/components/SearchForm";
-import StartupCard from "@/components/StartupCard";
+import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { auth } from "@/auth";
 
-export default async function Home({searchParams}: {
-  searchParams: Promise<{query?: string}>}) {
-    const query = (await searchParams).query;
+export default async function Home({ searchParams }: {
+  searchParams: Promise<{ query?: string }>;
+}) {
+  const query = (await searchParams).query;
+  const params = { search: query || null };
 
-    const posts = [{ 
-      _createdAt: new Date(),
-      views: 55,
-      author: { _id: 1, name: "Deiu" },
-      _id: 1,
-      title: "How to Build a Startup",
-      description: "Learn how to build a startup from scratch",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHN0YXJ0dXB8ZW58MHx8MHx8fDA%3D",
-      category: "Business",
-      }]
+  const session = await auth();
+
+  console.log(session?.id);
+
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
   return (
     <>
       <section className="pink_container">
         <h1 className="heading">
-          Pitch Your Startup, <br /> Connect With Entrepreneurs
+          Pitch Your Startup, <br />
+          Connect With Entrepreneurs
         </h1>
-        <p className="subheading !max-w-3xl">
-          Submit Ideas, Vote on Pitches and get Noticed in Virtual Competions.
+
+        <p className="sub-heading !max-w-3xl">
+          Submit Ideas, Vote on Pitches, and Get Noticed in Virtual
+          Competitions.
         </p>
 
-        <SearchForm query={query}/>
+        <SearchForm query={query} />
       </section>
 
       <section className="section_container">
         <p className="text-30-semibold">
-          {query ? `Search results for "${query}"` : "Latest Pitches"}
+          {query ? `Search results for "${query}"` : "All Startups"}
         </p>
 
         <ul className="mt-7 card_grid">
@@ -44,6 +47,8 @@ export default async function Home({searchParams}: {
           )}
         </ul>
       </section>
+
+      <SanityLive />
     </>
   );
 }
