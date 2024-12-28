@@ -1,9 +1,9 @@
-import { auth, signIn, signOut } from "@/auth";
+import { getAuthSession } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 
 const Navbar = async () => {
-  const session = await auth();
+  const session = await getAuthSession();
 
   return (
     <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
@@ -19,12 +19,8 @@ const Navbar = async () => {
                 <span>Create</span>
               </Link>
 
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
+              <form method="post" action="/api/auth/signout">
+                <input type="hidden" name="callbackUrl" value="/" />
                 <button type="submit">Logout</button>
               </form>
 
@@ -33,13 +29,7 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <form
-              action={async () => {
-                "use server";
-
-                await signIn("github");
-              }}
-            >
+            <form method="post" action="/api/auth/signin/github">
               <button type="submit">Login</button>
             </form>
           )}
