@@ -4,7 +4,9 @@ Remove-Item -Force .\package-lock.json
 npm install next@^15.1.1-canary.22 --force
 npm install --legacy-peer-deps
 
-
+  "resolutions": {
+    "next": "^15.1.1-canary.22"
+  },
 
 npm ls next
 

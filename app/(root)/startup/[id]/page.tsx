@@ -14,7 +14,8 @@ const md = markdownit();
 export const experimental_ppr = true;
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id: params.id });
+  const { id } = params;
+  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
   if (!post) return notFound();
 
@@ -56,7 +57,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <hr className="devider" />
 
             <Suspense fallback={<Skeleton className="view_skeleton"/>}>
-                <View id={params.id} />
+                <View id={id} />
             </Suspense>
       </section>
     </>

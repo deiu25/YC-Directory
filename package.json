@@ -16,9 +16,6 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
-  "resolutions": {
-    "next": "^15.1.1-canary.22"
-  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
     "@sanity/image-url": "^1.1.0",
