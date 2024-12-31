@@ -23,7 +23,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <section className="pink_container">
+      <section className="pink_container !min-h-[230px]">
         <p className="tag">{formatDate(post?._createdAt)}</p>
         <h1 className="heading">{post.title}</h1>;
         <p className="sub-heading !max-w-5xl">{post.description}</p>;
@@ -35,7 +35,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           alt="thumbail"
           width={700}
           height={400}
-          className="h-auto rounded-xl"
+          className="w-[80%] h-auto rounded-xl mx-auto"
         />
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
@@ -65,7 +65,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <h3 className="text-30-bold">Pitch Details</h3>
           {parseContent ? (
             <article
-              className="prose max-w-4xl font-work-sans brake-all"
+              className="prose max-w-4xl font-work-sans break-all"
               dangerouslySetInnerHTML={{ __html: parseContent }}
             />
           ) : (

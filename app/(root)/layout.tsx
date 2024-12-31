@@ -4,7 +4,6 @@ export default function Layuout({ children }: Readonly<{ children: React.ReactNo
   return (
     <main className="font-work-sans">
         <Navbar />
-        
         {children}
     </main>
   )
